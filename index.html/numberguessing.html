@@ -7,6 +7,57 @@
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
+<style>
+  body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+    color: #222;
+  }
+  .dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+  .app {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #ccc;
+  }
+  .card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }  
+  .btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  } 
+  .btn-primary {
+    background-color: hsl(150, 81%, 41%);
+    color: #fff;
+  } 
+  .btn-ghost {
+    background-color: transparent;
+    color: hsl(150, 81%, 41%);
+    border: 1px solid hsl(150, 81%, 41%);
+  }
+</style>
 <body>
   <div class="app">
     <!-- Header -->
@@ -47,6 +98,57 @@
     </section>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    const guessInput = document.getElementById('guess-input');
+    const guessBtn = document.getElementById('guess-btn');
+    const feedback = document.getElementById('feedback');
+    const attemptsDisplay = document.getElementById('attempts');
+    const lastGuessDisplay = document.getElementById('last-guess');
+    const resetBtn = document.getElementById('reset-btn');
+    const themeToggle = document.getElementById('theme-toggle');
+
+    let randomNumber = Math.floor(Math.random() * 100) + 1;
+    let attempts = 0;
+
+    function resetGame() {
+      randomNumber = Math.floor(Math.random() * 100) + 1;
+      attempts = 0;
+      attemptsDisplay.textContent = attempts;
+      lastGuessDisplay.textContent = 'N/A';
+      feedback.textContent = '';
+      guessInput.value = '';
+      guessInput.disabled = false;
+      guessBtn.disabled = false;
+    }
+
+    function checkGuess() {
+      const userGuess = parseInt(guessInput.value);
+      if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+        feedback.textContent = 'Please enter a valid number between 1 and 100.';
+        return;
+      }
+
+      attempts++;
+      attemptsDisplay.textContent = attempts;
+      lastGuessDisplay.textContent = userGuess;
+
+      if (userGuess === randomNumber) {
+        feedback.textContent = `Congratulations! You guessed the number ${randomNumber} in ${attempts} attempts.`;
+        guessInput.disabled = true;
+        guessBtn.disabled = true;
+      } else if (userGuess < randomNumber) {
+        feedback.textContent = 'Too low! Try again.';
+      } else {
+        feedback.textContent = 'Too high! Try again.';
+      }
+    }
+
+    guessBtn.addEventListener('click', checkGuess);
+    resetBtn.addEventListener('click', resetGame);
+
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+    });
+  </script>
 </body>
 </html> 

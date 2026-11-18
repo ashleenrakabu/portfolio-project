@@ -7,6 +7,92 @@
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
+<style>
+  body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+    color: #222;
+  }
+  .dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+  .app {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #ccc;
+  }
+  .card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }  
+  .btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  } 
+  .btn-primary {
+    background-color: hsl(150, 81%, 41%);
+    color: #fff;
+  } 
+  .btn-ghost {
+    background-color: transparent;
+    color: hsl(150, 81%, 41%);
+    border: 1px solid hsl(150, 81%, 41%);
+  } 
+  .networks-list {
+    margin-top: 1rem;
+  } 
+  .network-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #ccc;
+  } 
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+  } 
+  .modal-content {
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+  }
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  } 
+  </style>
+
 <body>
   <div class="app">
     <!-- Header -->
@@ -67,6 +153,68 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    // JavaScript code for WiFi Manager functionality
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const scanBtn = document.getElementById('scan-btn');
+    const networksList = document.getElementById('networks-list');
+    const savedList = document.getElementById('saved-list');
+    const passwordModal = document.getElementById('password-modal');
+    const modalSSID = document.getElementById('modal-ssid');
+    const passwordInput = document.getElementById('password-input');
+    const cancelBtn = document.getElementById('cancel-btn');
+    const connectBtn = document.getElementById('connect-btn');
+
+    let currentSSID = null;
+    let savedNetworks = [];
+
+    // Toggle dark mode
+    themeToggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      themeToggleBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+    });
+
+    // Scan for networks (simulated)
+    scanBtn.addEventListener('click', () => {
+      networksList.innerHTML = '';
+      const networks = [
+        { ssid: 'Home WiFi', signal: 'Strong' },
+        { ssid: 'CoffeeShop', signal: 'Medium' },
+        { ssid: 'Library', signal: 'Weak' }
+      ];
+      networks.forEach(network => {
+        const networkItem = document.createElement('div');
+        networkItem.className = 'network-item';
+        networkItem.innerHTML = `
+          <span class="network-ssid">${network.ssid}</span>
+          <span class="network-signal">${network.signal}</span>
+          <button class="btn btn-primary connect-btn">Connect</button>
+        `;
+        networksList.appendChild(networkItem);
+
+        // Connect button event
+        networkItem.querySelector('.connect-btn').addEventListener('click', () => {
+          modalSSID.textContent = network.ssid;
+          passwordModal.style.display = 'block';
+          currentSSID = network.ssid;
+        });
+      });
+    });
+
+    // Cancel button in modal
+    cancelBtn.addEventListener('click', () => {
+      passwordModal.style.display = 'none';
+      passwordInput.value = '';
+    });
+
+    // Connect button in modal
+    connectBtn.addEventListener('click', () => {
+      const password = passwordInput.value.trim();
+      // Simulate connection process
+      console.log(`Connecting to ${currentSSID} with password: ${password}`);
+      passwordModal.style.display = 'none';
+      passwordInput.value = '';
+    }); 
+  </script>
 </body>
 </html>

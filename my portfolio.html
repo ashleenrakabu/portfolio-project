@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ashlees Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: hsl(150, 81%, 41%);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        section {
+            padding: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }   
+        </Style>
+</head>
+<body>
+
+    <header class="site-header">
+    <nav class="nav">
+        <h1>Welcome to Ashlees Portfolio</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">About Me</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p>Hello! I'm a web developer with a passion for creating beautiful and functional websites. I have experience in HTML, CSS, and various frameworks.</p>
+    </section>
+
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="project">
+            <h3>Project 1</h3>
+            <p>Description of project 1.</p>
+        </div>
+        <div class="project">
+            <h3>Project 2</h3>
+            <p>Description of project 2.</p>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact</h2>
+        <form action="submit_form.php" method="POST">
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name" required><br><br>
+
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label for="message">Message:</label><br>
+            <textarea id="message" name="message" rows="4" required></textarea><br><br>
+
+            <input type="submit" value="Submit">
+        </form>
+    </section>
+
+    <footer>
+        &copy; 2024 Ashlees Portfolio. All rights reserved.
+    </footer>

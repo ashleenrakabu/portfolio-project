@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ashleen Rakabu | Personal Profile</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 4rem; }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f4f4f4;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    .container { max-width: 600px; margin: 0 auto; padding: 1rem; }
+
+    /* Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      padding: 0.75rem 1rem;
+      background-color: hsl(150, 81%, 30%);
+      z-index: 10;
+    }
+    .brand { color: #fff; font-weight: bold; font-size: 1.1rem; text-decoration: none; }
+    .nav-links { display: flex; gap: 1.25rem; list-style: none; margin: 0; padding: 0; }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      padding: 0.25rem 0;
+      border-bottom: 2px solid transparent;
+    }
+    .nav-links a:hover,
+    .nav-links a:focus-visible { color: #ffeb3b; border-bottom-color: #ffeb3b; }
+
+    /* Header */
+    header { background-color: hsl(150, 81%, 41%); color: #fff; text-align: center; }
+    header h1 { margin: 0; }
+    header p { margin: 0.25rem 0 0; }
+
+    /* Main content */
+    .portrait { display: block; max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 1rem; }
+    section { margin-bottom: 1.5rem; }
+    iframe { max-width: 100%; border: 0; }
+
+    /* Footer */
+    footer { background-color: #333; color: #fff; text-align: center; }
+    footer a { color: #fff; }
+    footer a:hover { color: #ffeb3b; }
+
+    @media (max-width: 480px) {
+      .navbar { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar" aria-label="Main">
+    <a class="brand" href="#home">Ashleen Rakabu</a>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header id="home">
+    <div class="container">
+      <h1>Ashleen Rakabu</h1>
+      <p>Web developer and Computer Science student</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <img class="portrait" src="profile.jpg" alt="Portrait of Ashleen Rakabu">
+
+    <section class="profile">
+      <h2>About Me</h2>
+      <p>Hello! My name is Ashleen Rakabu. I am a web developer with a passion for web development and user experience. I enjoy learning new skills and exploring different cultures.</p>
+      <p>I am currently pursuing a Diploma in Computer Science at Kitale National Polytechnic, where I am building my skills in web development and programming.</p>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/Wtvl0M61zbg" title="Featured video" allowfullscreen></iframe>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <ul>
+        <li>Personal profile page</li>
+        <li>Project two</li>
+        <li>Project three</li>
+      </ul>
+    </section>
+
+    <section class="skills">
+      <h2>Skills</h2>
+      <ul>
+        <li>HTML/CSS</li>
+        <li>JavaScript</li>
+        <li>React</li>
+      </ul>
+    </section>
+
+    <section class="experience">
+      <h2>Experience</h2>
+      <p>Software Developer at Endelevu Company (2026 - Present) - Responsible for developing and maintaining web applications using modern technologies.</p>
+    </section>
+
+    <section class="education">
+      <h2>Education</h2>
+      <p>Diploma in Computer Science, Kitale National Polytechnic (2026 - 2028)</p>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="container">
+      <p><a href="mailto:ashleenrakabu191@example.com">ashleenrakabu191@example.com</a></p>
+      <p>&copy; 2026 Ashleen Rakabu. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

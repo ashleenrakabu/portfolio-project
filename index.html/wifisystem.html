@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WiFi Manager</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header>
+      <div>
+        <h1>WiFi Manager</h1>
+        <p class="subtitle">Network Management System</p>
+      </div>
+      <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <!-- Current Connection -->
+    <section class="card current-card">
+      <div class="card-header">
+        <h2>Current Connection</h2>
+      </div>
+      <div id="current-network">
+        <!-- Filled by JavaScript -->
+      </div>
+    </section>
+
+    <!-- Available Networks -->
+    <section class="card">
+      <div class="card-header">
+        <h2>Available Networks</h2>
+        <button id="scan-btn" class="btn btn-ghost">
+          <span class="scan-icon">↻</span> Scan
+        </button>
+      </div>
+      <div id="networks-list" class="networks-list">
+        <!-- Networks will be added by JavaScript -->
+      </div>
+    </section>
+
+    <!-- Saved Networks -->
+    <section class="card">
+      <div class="card-header">
+        <h2>Saved Networks</h2>
+      </div>
+      <div id="saved-list" class="networks-list">
+        <p class="empty-state">No saved networks yet</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Password Modal -->
+  <div id="password-modal" class="modal">
+    <div class="modal-content">
+      <h3>Connect to Network</h3>
+      <p id="modal-ssid" class="modal-ssid"></p>
+      <div class="input-group">
+        <input type="password" id="password-input" placeholder="Enter password" autocomplete="off">
+      </div>
+      <div class="modal-actions">
+        <button id="cancel-btn" class="btn btn-ghost">Cancel</button>
+        <button id="connect-btn" class="btn btn-primary">Connect</button>ss
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

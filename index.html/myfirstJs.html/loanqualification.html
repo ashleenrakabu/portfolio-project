@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loan Qualification Checker</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --radius: 16px;
+      --shadow: 0 10px 30px -10px rgba(0,0,0,0.4);
+    }
+
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--primary), #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      color: var(--text-muted);
+    }
+
+    .theme-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 2rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    input, select {
+      padding: 0.9rem 1rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border 0.2s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 1rem;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* Results */
+    #result {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .result-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+    }
+
+    .result-icon.success {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--success);
+    }
+
+    .result-icon.danger {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--danger);
+    }
+
+    .result-icon.warning {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--warning);
+    }
+
+    .result-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .stat-box {
+      background: var(--bg);
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+
+    .stat-box h3 {
+      font-size: 1.4rem;
+      color: var(--primary);
+    }
+
+    .stat-box p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .reasons {
+      margin-top: 1.5rem;
+    }
+
+    .reasons h4 {
+      margin-bottom: 0.8rem;
+    }
+
+    .reasons ul {
+      list-style: none;
+    }
+
+    .reasons li {
+      padding: 0.6rem 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .reasons li i {
+      margin-top: 3px;
+    }
+
+    .tips {
+      background: rgba(99, 102, 241, 0.1);
+      border-left: 4px solid var(--primary);
+      padding: 1rem 1.2rem;
+      border-radius: 0 12px 12px 0;
+      margin-top: 1.5rem;
+    }
+
+    .disclaimer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 600px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-row {
+        grid-template-columns: 1fr;
+      }
+
+      header h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <button class="theme-btn" id="themeToggle">
+        <i class="fas fa-moon"></i>
+      </button>
+      <h1><i class="fas fa-hand-holding-usd"></i> Loan Qualification Checker</h1>
+      <p>Check if you qualify for a loan in seconds</p>
+    </header>
+
+    <!-- Form Card -->
+    <div class="card">
+      <form id="loanForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="income">Monthly Income (KES)</label>
+            <input type="number" id="income" placeholder="e.g. 80000" required min="0" />
+          </div>
+
+          <div class="form-group">
+            <label for="creditScore">Credit Score</label>
+            <input type="number" id="creditScore" placeholder="300 - 850" required min="300" max="850" />
+          </div>
+
+          <div class="form-group">
+            <label for="loanAmount">Requested Loan Amount (KES)</label>
+            <input type="number" id="loanAmount" placeholder="e.g. 500000" required min="1000" />
+          </div>
+
+          <div class="form-group">
+            <label for="monthlyDebts">Monthly Debt Payments (KES)</label>
+            <input type="number" id="monthlyDebts" placeholder="e.g. 15000" required min="0" />
+          </div>
+
+          <div class="form-group full">
+            <label for="employment">Employment Status</label>
+            <select id="employment" required>
+              <option value="">Select status</option>
+              <option value="employed">Employed (Full-time)</option>
+              <option value="self-employed">Self-Employed</option>
+              <option value="part-time">Part-time / Contract</option>
+              <option value="unemployed">Unemployed</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn">
+          <i class="fas fa-search-dollar"></i> Check Qualification
+        </button>
+      </form>
+    </div>
+
+    <!-- Result Card -->
+    <div class="card" id="result">
+      <div class="result-header">
+        <div class="result-icon" id="resultIcon">
+          <i class="fas fa-check"></i>
+        </div>
+        <div>
+          <div class="result-title" id="resultTitle">You Qualify!</div>
+          <p id="resultSubtitle" style="color: var(--text-muted);"></p>
+        </div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-box">
+          <h3 id="dtiValue">0%</h3>
+          <p>Debt-to-Income</p>
+        </div>
+        <div class="stat-box">
+          <h3 id="maxLoan">0</h3>
+          <p>Max Recommended</p>
+        </div>
+        <div class="stat-box">
+          <h3 id="creditRating">-</h3>
+          <p>Credit Rating</p>
+        </div>
+      </div>
+
+      <div class="reasons">
+        <h4>Analysis:</h4>
+        <ul id="reasonsList"></ul>
+      </div>
+
+      <div class="tips" id="tipsBox">
+        <strong>Tip:</strong> <span id="tipText"></span>
+      </div>
+    </div>
+
+    <p class="disclaimer">
+      <i class="fas fa-info-circle"></i> This is a simple simulation tool for educational purposes only. 
+      It does not represent real bank decisions. Always consult a licensed financial institution.
+    </p>
+  </div>
+
+  <script>
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const icon = themeToggle.querySelector('i');
+
+    if (localStorage.getItem('theme') === 'light') {
+      html.setAttribute('data-theme', 'light');
+      icon.classList.replace('fa-moon', 'fa-sun');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      if (html.getAttribute('data-theme') === 'light') {
+        html.removeAttribute('data-theme');
+        icon.classList.replace('fa-sun', 'fa-moon');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        html.setAttribute('data-theme', 'light');
+        icon.classList.replace('fa-moon', 'fa-sun');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+
+    // Loan Checker Logic
+    document.getElementById('loanForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const income = parseFloat(document.getElementById('income').value);
+      const creditScore = parseInt(document.getElementById('creditScore').value);
+      const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+      const monthlyDebts = parseFloat(document.getElementById('monthlyDebts').value);
+      const employment = document.getElementById('employment').value;
+
+      // Calculations
+      const dti = (monthlyDebts / income) * 100;
+      const annualIncome = income * 12;
+      const maxRecommended = annualIncome * 0.4; // Conservative 40% of annual income
+
+      // Credit Rating
+      let creditRating = '';
+      if (creditScore >= 750) creditRating = 'Excellent';
+      else if (creditScore >= 700) creditRating = 'Good';
+      else if (creditScore >= 650) creditRating = 'Fair';
+      else if (creditScore >= 580) creditRating = 'Poor';
+      else creditRating = 'Very Poor';
+
+      // Qualification Rules
+      let score = 0;
+      const reasons = [];
+
+      // 1. Credit Score
+      if (creditScore >= 700) {
+        score += 30;
+        reasons.push({ type: 'success', text: 'Excellent/Good credit score' });
+      } else if (creditScore >= 650) {
+        score += 20;
+        reasons.push({ type: 'warning', text: 'Fair credit score – acceptable but can be improved' });
+      } else {
+        reasons.push({ type: 'danger', text: 'Low credit score (below 650)' });
+      }
+
+      // 2. Debt-to-Income Ratio
+      if (dti <= 30) {
+        score += 30;
+        reasons.push({ type: 'success', text: `Healthy DTI ratio (${dti.toFixed(1)}%)` });
+      } else if (dti <= 40) {
+        score += 15;
+        reasons.push({ type: 'warning', text: `Moderate DTI ratio (${dti.toFixed(1)}%)` });
+      } else {
+        reasons.push({ type: 'danger', text: `High DTI ratio (${dti.toFixed(1)}%) – above 40%` });
+      }
+
+      // 3. Employment
+      if (employment === 'employed') {
+        score += 25;
+        reasons.push({ type: 'success', text: 'Stable full-time employment' });
+      } else if (employment === 'self-employed') {
+        score += 15;
+        reasons.push({ type: 'warning', text: 'Self-employed – may need more documents' });
+      } else if (employment === 'part-time') {
+        score += 10;
+        reasons.push({ type: 'warning', text: 'Part-time/Contract employment' });
+      } else {
+        reasons.push({ type: 'danger', text: 'Currently unemployed' });
+      }
+
+      // 4. Loan Amount vs Income
+      if (loanAmount <= maxRecommended) {
+        score += 15;
+        reasons.push({ type: 'success', text: 'Requested amount is within recommended limit' });
+      } else {
+        reasons.push({ type: 'danger', text: 'Requested amount is higher than recommended' });
+      }
+
+      // Final Decision
+      let qualified = false;
+      let title = '';
+      let subtitle = '';
+      let iconClass = '';
+      let icon = '';
+      let tip = '';
+
+      if (score >= 70) {
+        qualified = true;
+        title = 'Congratulations! You Qualify';
+        subtitle = 'You have a strong chance of getting approved';
+        iconClass = 'success';
+        icon = 'fa-check-circle';
+        tip = 'Shop around different lenders to get the best interest rate.';
+      } else if (score >= 45) {
+        title = 'Possible Qualification';
+        subtitle = 'You may qualify with some conditions or a co-signer';
+        iconClass = 'warning';
+        icon = 'fa-exclamation-circle';
+        tip = 'Try reducing your monthly debts or improving your credit score before applying.';
+      } else {
+        title = 'Not Qualified at the Moment';
+        subtitle = 'You currently do not meet the minimum requirements';
+        iconClass = 'danger';
+        icon = 'fa-times-circle';
+        tip = 'Focus on increasing your income, paying down debts, and improving your credit score.';
+      }
+
+      // Display Results
+      document.getElementById('result').style.display = 'block';
+      document.getElementById('resultTitle').textContent = title;
+      document.getElementById('resultSubtitle').textContent = subtitle;
+      
+      const resultIcon = document.getElementById('resultIcon');
+      resultIcon.className = `result-icon ${iconClass}`;
+      resultIcon.innerHTML = `<i class="fas ${icon}"></i>`;
+
+      document.getElementById('dtiValue').textContent = dti.toFixed(1) + '%';
+      document.getElementById('maxLoan').textContent = 'KES ' + Math.round(maxRecommended).toLocaleString();
+      document.getElementById('creditRating').textContent = creditRating;
+
+      // Reasons list
+      const reasonsList = document.getElementById('reasonsList');
+      reasonsList.innerHTML = '';
+      reasons.forEach(r => {
+        const li = document.createElement('li');
+        let iconColor = r.type === 'success' ? 'var(--success)' : 
+                        r.type === 'warning' ? 'var(--warning)' : 'var(--danger)';
+        let iconName = r.type === 'success' ? 'fa-check-circle' : 
+                       r.type === 'warning' ? 'fa-exclamation-circle' : 'fa-times-circle';
+        
+        li.innerHTML = `<i class="fas ${iconName}" style="color:${iconColor}"></i> ${r.text}`;
+        reasonsList.appendChild(li);
+      });
+
+      document.getElementById('tipText').textContent = tip;
+
+      // Scroll to result
+      document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  </script>
+</body>
+</html>

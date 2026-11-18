@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ashleen Rakabu | Personal Profile</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #c4a7ff;
+      --primary-dark: #a884f5;
+      --accent: #f6bd8b;
+      --bg: #11111b;
+      --surface: #1b1b2a;
+      --text: #f6f3ff;
+      --text-muted: #aaa7bb;
+      --border: #343348;
+      --radius: 20px;
+      --shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.75);
+    }
+
+    [data-theme="light"] {
+      --bg: #f8f6fc;
+      --surface: #ffffff;
+      --text: #211d31;
+      --text-muted: #6f6a7d;
+      --border: #e8e2f0;
+      --shadow: 0 24px 60px -30px rgba(48, 34, 74, 0.25);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(17, 17, 27, 0.86);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
+      border-bottom: 1px solid var(--border);
+    }
+
+    [data-theme="light"] nav {
+      background: rgba(255, 255, 255, 0.85);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.04em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .theme-btn, .menu-btn {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.3rem;
+      cursor: pointer;
+      padding: 0.4rem;
+    }
+
+    .menu-btn {
+      display: none;
+    }
+
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8rem 1.5rem 5rem;
+      background:
+        radial-gradient(ellipse at 75% 30%, rgba(196, 167, 255, 0.16), transparent 38%),
+        radial-gradient(ellipse at 10% 85%, rgba(246, 189, 139, 0.08), transparent 32%);
+    }
+
+    .hero-content {
+      width: 100%;
+      max-width: 1120px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 0.78fr);
+      align-items: center;
+      gap: clamp(2.5rem, 7vw, 6rem);
+    }
+
+    .hero-copy {
+      max-width: 590px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .eyebrow::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 6vw, 5.2rem);
+      line-height: 1.04;
+      letter-spacing: -0.06em;
+      margin-bottom: 1rem;
+      background: linear-gradient(120deg, var(--text) 20%, var(--primary) 88%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero .title {
+      font-size: 1.15rem;
+      color: var(--primary);
+      margin-bottom: 1.2rem;
+      font-weight: 600;
+    }
+
+    .hero-copy > p:not(.title) {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      font-size: 1.08rem;
+      max-width: 520px;
+    }
+
+    .portrait-card {
+      position: relative;
+      width: min(100%, 410px);
+      aspect-ratio: 4 / 5;
+      justify-self: center;
+      isolation: isolate;
+    }
+
+    .portrait-card::before {
+      content: '';
+      position: absolute;
+      inset: 18px -18px -18px 18px;
+      border: 1px solid rgba(196, 167, 255, 0.55);
+      border-radius: 180px 180px 28px 28px;
+      z-index: -1;
+    }
+
+    .portrait-frame {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 180px 180px 28px 28px;
+      background: linear-gradient(145deg, #39304d, #242235 58%, #302337);
+      box-shadow: var(--shadow);
+    }
+
+    .portrait-frame img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 28%;
+    }
+
+    .portrait-card.is-missing .portrait-frame img {
+      display: none;
+    }
+
+    .portrait-placeholder {
+      display: none;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 2rem;
+      text-align: center;
+      background:
+        radial-gradient(circle at 50% 35%, rgba(196, 167, 255, 0.22), transparent 42%),
+        linear-gradient(145deg, #39304d, #242235 68%, #302337);
+    }
+
+    .portrait-card.is-missing .portrait-placeholder {
+      display: flex;
+    }
+
+    .portrait-placeholder strong {
+      color: var(--text);
+      font-size: clamp(4rem, 10vw, 6rem);
+      line-height: 1;
+      letter-spacing: -0.08em;
+    }
+
+    .portrait-placeholder span {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      max-width: 230px;
+      margin-top: 1rem;
+    }
+
+    .portrait-note {
+      position: absolute;
+      right: -24px;
+      bottom: 30px;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      color: var(--text);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .portrait-note i {
+      color: var(--accent);
+      margin-right: 0.35rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.9rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(168, 132, 245, 0.22);
+    }
+
+    .btn-outline {
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5.5rem 1.5rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 2.5rem;
+      text-align: center;
+      position: relative;
+      letter-spacing: -0.04em;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: var(--primary);
+      margin: 0.8rem auto 0;
+      border-radius: 2px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .about-text p {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .stat {
+      text-align: center;
+      background: var(--surface);
+      padding: 1.5rem 1rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .stat h3 {
+      font-size: 1.8rem;
+      color: var(--primary);
+    }
+
+    .stat p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-card {
+      background: var(--surface);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: transform 0.25s, border-color 0.25s;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+    }
+
+    .skill-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.6rem;
+      font-weight: 500;
+    }
+
+    .skill-bar {
+      height: 10px;
+      background: var(--border);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .skill-progress {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), #a78bfa);
+      border-radius: 5px;
+      width: 0;
+      transition: width 1.4s ease;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 60px;
+      margin-bottom: 2.5rem;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 12px;
+      top: 6px;
+      width: 18px;
+      height: 18px;
+      background: var(--primary);
+      border-radius: 50%;
+      border: 3px solid var(--bg);
+    }
+
+    .timeline-content {
+      background: var(--surface);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .timeline-content h3 {
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-content .company {
+      color: var(--primary);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-content .date {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: var(--shadow);
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow);
+    }
+
+    .project-img {
+      height: 180px;
+      background: linear-gradient(135deg, #625187, #a884f5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: white;
+    }
+
+    .project-body {
+      padding: 1.5rem;
+    }
+
+    .project-body h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    .project-body p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-demo {
+      padding: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: color-mix(in srgb, var(--bg) 62%, var(--surface));
+    }
+
+    .demo-label {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.7rem;
+      text-transform: uppercase;
+    }
+
+    .calculator-display {
+      width: 100%;
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      overflow: hidden;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface);
+      color: var(--text);
+      font-size: clamp(1.7rem, 7vw, 2.3rem);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .calculator-keys {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.5rem;
+    }
+
+    .calculator-keys button,
+    .todo-form button,
+    .todo-filters button,
+    .todo-list button,
+    .timer-controls button {
+      min-height: 42px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+      color: var(--text);
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+
+    .calculator-keys button:hover,
+    .todo-form button:hover,
+    .todo-filters button:hover,
+    .todo-list button:hover,
+    .timer-controls button:hover {
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .calculator-keys button.operator,
+    .todo-form button,
+    .timer-controls button.primary-action {
+      background: var(--primary);
+      color: #211832;
+      border-color: var(--primary);
+    }
+
+    .todo-form {
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
+      margin: 0;
+    }
+
+    .todo-form input {
+      min-width: 0;
+      padding: 0.7rem 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    .todo-form button {
+      flex: 0 0 46px;
+      font-size: 1.15rem;
+    }
+
+    .todo-summary {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin: 0.9rem 0 0.6rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    .todo-filters {
+      display: flex;
+      gap: 0.35rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .todo-filters button {
+      min-height: 30px;
+      padding: 0.2rem 0.55rem;
+      font-size: 0.72rem;
+    }
+
+    .todo-filters button[aria-pressed="true"] {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .todo-list {
+      display: grid;
+      gap: 0.45rem;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+
+    .todo-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      min-width: 0;
+      padding: 0.45rem 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .todo-row input {
+      width: 17px;
+      height: 17px;
+      accent-color: var(--primary-dark);
+    }
+
+    .todo-row span {
+      flex: 1;
+      min-width: 0;
+      overflow-wrap: anywhere;
+      font-size: 0.85rem;
+    }
+
+    .todo-row.completed span {
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    .todo-row button {
+      min-height: 30px;
+      width: 30px;
+      color: var(--text-muted);
+    }
+
+    .todo-empty,
+    .todo-storage-message {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    .todo-storage-message:not(:empty) {
+      margin-top: 0.55rem;
+      color: var(--accent);
+    }
+
+    .timer-face {
+      display: grid;
+      place-items: center;
+      min-height: 150px;
+      border-radius: 14px;
+      background:
+        radial-gradient(circle, rgba(196, 167, 255, 0.17), transparent 68%),
+        var(--surface);
+      text-align: center;
+    }
+
+    .timer-time {
+      color: var(--text);
+      font-size: clamp(3rem, 10vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -0.07em;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .timer-status {
+      margin-top: 0.45rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .timer-controls {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-top: 0.8rem;
+    }
+
+    .timer-controls button {
+      min-width: 90px;
+      padding: 0.5rem 0.8rem;
+    }
+
+    .project-card .tags {
+      margin-top: 1rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--primary);
+      padding: 0.25rem 0.7rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .contact-item i {
+      width: 48px;
+      height: 48px;
+      background: var(--surface);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 1.2rem;
+      border: 1px solid var(--border);
+    }
+
+    .socials {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .socials a {
+      width: 44px;
+      height: 44px;
+      background: var(--surface);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      border: 1px solid var(--border);
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .socials a:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    input, textarea {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.9rem 1.2rem;
+      border-radius: 12px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--surface);
+        flex-direction: column;
+        padding: 1.5rem;
+        gap: 1rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 7rem;
+      }
+
+      .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 3rem;
+      }
+
+      .hero-copy {
+        margin: 0 auto;
+      }
+
+      .eyebrow {
+        justify-content: center;
+      }
+
+      .hero-copy > p:not(.title) {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .portrait-card {
+        width: min(78vw, 340px);
+        grid-row: 1;
+      }
+
+      .portrait-note {
+        right: -10px;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.6rem, 12vw, 4rem);
+      }
+
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.7rem;
+      }
+
+      .stat {
+        padding: 1rem 0.5rem;
+      }
+
+      .stat h3 {
+        font-size: 1.45rem;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .projects-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .portrait-card::before {
+        inset: 12px -10px -12px 10px;
+      }
+
+      .portrait-note {
+        right: -4px;
+        bottom: 18px;
+        font-size: 0.78rem;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo">Ashleen Rakabu</div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div style="display: flex; gap: 0.8rem; align-items: center;">
+        <button class="theme-btn" id="themeToggle">
+          <i class="fas fa-moon"></i>
+        </button>
+        <button class="menu-btn" id="menuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-copy">
+        <span class="eyebrow">Hello, I'm Ashleen</span>
+        <h1>Ashleen<br />Rakabu</h1>
+        <p class="title">Frontend Developer | HTML • CSS • JavaScript</p>
+        <p>
+          I love building beautiful, responsive and interactive websites with thoughtful details and a little bit of creativity.
+        </p>
+        <div class="cta-buttons">
+          <a href="#contact" class="btn btn-primary">
+            <i class="fas fa-paper-plane"></i> Get in Touch
+          </a>
+          <a href="#projects" class="btn btn-outline">
+            <i class="fas fa-code"></i> View Work
+          </a>
+        </div>
+      </div>
+      <div class="portrait-card" id="portraitCard">
+        <div class="portrait-frame">
+          <img src="profile.png" alt="Portrait of Ashleen Rakabu" />
+          <div class="portrait-placeholder" aria-hidden="true">
+            <strong>AR</strong>
+            <span>Add profile.png beside this page to display your photo here.</span>
+          </div>
+        </div>
+        <div class="portrait-note"><i class="fas fa-sparkles"></i> Creative by nature</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <h2 class="section-title">About Me</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          Hello! I'm <strong>Ashleen Rakabu</strong>, a passionate frontend developer who has completely mastered 
+          <strong>HTML, CSS, and JavaScript</strong>. I enjoy creating clean, modern, 
+          and fully responsive websites from scratch.
+        </p>
+        <p>
+          My strong foundation in the core web technologies allows me to build 
+          beautiful and functional user interfaces with great attention to detail.
+        </p>
+        <div class="stats">
+          <div class="stat">
+            <h3>100%</h3>
+            <p>HTML</p>
+          </div>
+          <div class="stat">
+            <h3>100%</h3>
+            <p>CSS</p>
+          </div>
+          <div class="stat">
+            <h3>100%</h3>
+            <p>JavaScript</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <h2 class="section-title">My Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-header">
+          <span><i class="fab fa-html5"></i> HTML5</span>
+          <span>100%</span>
+        </div>
+        <div class="skill-bar"><div class="skill-progress" data-width="100"></div></div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <span><i class="fab fa-css3-alt"></i> CSS3</span>
+          <span>100%</span>
+        </div>
+        <div class="skill-bar"><div class="skill-progress" data-width="100"></div></div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <span><i class="fab fa-js"></i> JavaScript</span>
+          <span>100%</span>
+        </div>
+        <div class="skill-bar"><div class="skill-progress" data-width="100"></div></div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <span>Responsive Design</span>
+          <span>95%</span>
+        </div>
+        <div class="skill-bar"><div class="skill-progress" data-width="95"></div></div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <span>Flexbox & Grid</span>
+          <span>98%</span>
+        </div>
+        <div class="skill-bar"><div class="skill-progress" data-width="98"></div></div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <span>DOM Manipulation</span>
+          <span>95%</span>
+        </div>
+        <div class="skill-bar"><div class="skill-progress" data-width="95"></div></div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <span>CSS Animations</span>
+          <span>90%</span>
+        </div>
+        <div class="skill-bar"><div class="skill-progress" data-width="90"></div></div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <span>ES6+ JavaScript</span>
+          <span>92%</span>
+        </div>
+        <div class="skill-bar"><div class="skill-progress" data-width="92"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience">
+    <h2 class="section-title">Experience</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h3>Frontend Developer</h3>
+          <div class="company">Freelance / Personal Projects</div>
+          <div class="date">2026 – Present</div>
+          <p>Building complete websites and web applications using pure HTML, CSS, and JavaScript.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h3>Web Development Student</h3>
+          <div class="company">Self-Taught</div>
+          <div class="date">2025 – 2026</div>
+          <p>Mastered HTML, CSS, and JavaScript through dedicated learning and consistent practice.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <h2 class="section-title">Try My Mini Apps</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-img"><i class="fas fa-calculator"></i></div>
+        <div class="project-body">
+          <h3>Everyday Calculator</h3>
+          <p>Handle quick calculations with a keypad or your keyboard.</p>
+          <div class="project-demo" id="calculator" aria-label="Interactive calculator">
+            <span class="demo-label">Calculator</span>
+            <output class="calculator-display" id="calculatorDisplay" aria-live="polite">0</output>
+            <div class="calculator-keys">
+              <button type="button" data-calc-key="clear">AC</button>
+              <button type="button" data-calc-key="delete">DEL</button>
+              <button type="button" data-calc-key="/" class="operator" aria-label="Divide">÷</button>
+              <button type="button" data-calc-key="*" class="operator" aria-label="Multiply">×</button>
+              <button type="button" data-calc-key="7">7</button>
+              <button type="button" data-calc-key="8">8</button>
+              <button type="button" data-calc-key="9">9</button>
+              <button type="button" data-calc-key="-" class="operator" aria-label="Subtract">−</button>
+              <button type="button" data-calc-key="4">4</button>
+              <button type="button" data-calc-key="5">5</button>
+              <button type="button" data-calc-key="6">6</button>
+              <button type="button" data-calc-key="+" class="operator" aria-label="Add">+</button>
+              <button type="button" data-calc-key="1">1</button>
+              <button type="button" data-calc-key="2">2</button>
+              <button type="button" data-calc-key="3">3</button>
+              <button type="button" data-calc-key="equals" class="operator">=</button>
+              <button type="button" data-calc-key="sign" aria-label="Change sign">±</button>
+              <button type="button" data-calc-key="0">0</button>
+              <button type="button" data-calc-key=".">.</button>
+              <button type="button" data-calc-key="equals" class="operator" aria-label="Equals">↵</button>
+            </div>
+          </div>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-img"><i class="fas fa-tasks"></i></div>
+        <div class="project-body">
+          <h3>To-Do List App</h3>
+          <p>Add tasks, mark them done and filter your list. Tasks are saved on this device.</p>
+          <div class="project-demo">
+            <span class="demo-label">My tasks</span>
+            <form class="todo-form" id="todoForm">
+              <input id="todoInput" type="text" maxlength="100" placeholder="What needs doing?" aria-label="New task" required />
+              <button type="submit" aria-label="Add task"><i class="fas fa-plus"></i></button>
+            </form>
+            <div class="todo-summary">
+              <span id="todoCount">0 tasks left</span>
+              <span>Saved locally</span>
+            </div>
+            <div class="todo-filters" aria-label="Filter tasks">
+              <button type="button" data-todo-filter="all" aria-pressed="true">All</button>
+              <button type="button" data-todo-filter="active" aria-pressed="false">Active</button>
+              <button type="button" data-todo-filter="completed" aria-pressed="false">Done</button>
+            </div>
+            <div class="todo-list" id="todoList" aria-live="polite"></div>
+            <p class="todo-storage-message" id="todoStorageMessage" role="status"></p>
+          </div>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-img"><i class="fas fa-hourglass-half"></i></div>
+        <div class="project-body">
+          <h3>Focus Timer</h3>
+          <p>A simple 25-minute focus session timer. Start, pause and reset whenever you need.</p>
+          <div class="project-demo">
+            <span class="demo-label">Focus session</span>
+            <div class="timer-face">
+              <div>
+                <div class="timer-time" id="timerDisplay" role="timer" aria-live="off">25:00</div>
+                <p class="timer-status" id="timerStatus" aria-live="polite">Ready when you are</p>
+              </div>
+            </div>
+            <div class="timer-controls">
+              <button type="button" class="primary-action" id="timerStart">Start</button>
+              <button type="button" id="timerReset">Reset</button>
+            </div>
+          </div>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2 class="section-title">Get In Touch</h2>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <div>
+            <strong>Email</strong><br />
+            <span style="color: var(--text-muted)">ashleen.rakabu@email.com</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <div>
+            <strong>Location</strong><br />
+            <span style="color: var(--text-muted)">Nairobi, Kenya</span>
+          </div>
+        </div>
+        <div class="socials">
+          <a href="#"><i class="fab fa-github"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+
+      <form id="contactForm">
+        <input type="text" placeholder="Your Name" required />
+        <input type="email" placeholder="Your Email" required />
+        <textarea placeholder="Your Message" required></textarea>
+        <button type="submit" class="btn btn-primary" style="align-self: flex-start;">
+          Send Message
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Ashleen Rakabu • Built with HTML, CSS & JavaScript</p>
+  </footer>
+
+  <script>
+    const portraitCard = document.getElementById('portraitCard');
+    const portraitImage = portraitCard.querySelector('img');
+
+    const showPortraitFallback = () => portraitCard.classList.add('is-missing');
+    portraitImage.addEventListener('error', showPortraitFallback);
+    if (portraitImage.complete && portraitImage.naturalWidth === 0) {
+      showPortraitFallback();
+    }
+
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const icon = themeToggle.querySelector('i');
+
+    if (localStorage.getItem('theme') === 'light') {
+      html.setAttribute('data-theme', 'light');
+      icon.classList.replace('fa-moon', 'fa-sun');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      if (html.getAttribute('data-theme') === 'light') {
+        html.removeAttribute('data-theme');
+        icon.classList.replace('fa-sun', 'fa-moon');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        html.setAttribute('data-theme', 'light');
+        icon.classList.replace('fa-moon', 'fa-sun');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+
+    // Mobile Menu
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('active'));
+    });
+
+    // Skill bars animation
+    const skillBars = document.querySelectorAll('.skill-progress');
+    const animateSkills = () => {
+      skillBars.forEach(bar => {
+        bar.style.width = bar.getAttribute('data-width') + '%';
+      });
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        animateSkills();
+        observer.unobserve(document.getElementById('skills'));
+      }
+    }, { threshold: 0.3 });
+
+    observer.observe(document.getElementById('skills'));
+
+    // Interactive calculator
+    const calculator = document.getElementById('calculator');
+    const calculatorDisplay = document.getElementById('calculatorDisplay');
+    let calculatorValue = '0';
+    let calculatorStoredValue = null;
+    let calculatorOperator = null;
+    let calculatorStartsNewNumber = false;
+
+    const updateCalculatorDisplay = () => {
+      calculatorDisplay.textContent = calculatorValue;
+    };
+
+    const calculate = (left, right, operator) => {
+      if (operator === '+') return left + right;
+      if (operator === '-') return left - right;
+      if (operator === '*') return left * right;
+      if (operator === '/') return right === 0 ? null : left / right;
+      return right;
+    };
+
+    const handleCalculatorKey = (key) => {
+      if (/^\d$/.test(key)) {
+        if (calculatorStartsNewNumber || calculatorValue === '0') {
+          calculatorValue = key;
+          calculatorStartsNewNumber = false;
+        } else if (calculatorValue.replace('-', '').replace('.', '').length < 12) {
+          calculatorValue += key;
+        }
+      } else if (key === '.') {
+        if (calculatorStartsNewNumber) {
+          calculatorValue = '0.';
+          calculatorStartsNewNumber = false;
+        } else if (!calculatorValue.includes('.')) {
+          calculatorValue += '.';
+        }
+      } else if (key === 'clear') {
+        calculatorValue = '0';
+        calculatorStoredValue = null;
+        calculatorOperator = null;
+        calculatorStartsNewNumber = false;
+      } else if (key === 'delete') {
+        calculatorValue = calculatorStartsNewNumber ? '0' : calculatorValue.slice(0, -1) || '0';
+        calculatorStartsNewNumber = false;
+      } else if (key === 'sign') {
+        if (calculatorValue !== '0') {
+          calculatorValue = calculatorValue.startsWith('-')
+            ? calculatorValue.slice(1)
+            : `-${calculatorValue}`;
+        }
+      } else if (['+', '-', '*', '/'].includes(key)) {
+        const currentValue = Number(calculatorValue);
+        if (calculatorOperator && !calculatorStartsNewNumber) {
+          const result = calculate(calculatorStoredValue, currentValue, calculatorOperator);
+          if (result === null) {
+            calculatorValue = 'Cannot divide by 0';
+            calculatorStoredValue = null;
+            calculatorOperator = null;
+            calculatorStartsNewNumber = true;
+            updateCalculatorDisplay();
+            return;
+          }
+          calculatorValue = String(Number(result.toPrecision(10)));
+        }
+        calculatorStoredValue = Number(calculatorValue);
+        calculatorOperator = key;
+        calculatorStartsNewNumber = true;
+      } else if (key === 'equals' && calculatorOperator && calculatorStoredValue !== null) {
+        const result = calculate(calculatorStoredValue, Number(calculatorValue), calculatorOperator);
+        calculatorValue = result === null
+          ? 'Cannot divide by 0'
+          : String(Number(result.toPrecision(10)));
+        calculatorStoredValue = null;
+        calculatorOperator = null;
+        calculatorStartsNewNumber = true;
+      }
+
+      updateCalculatorDisplay();
+    };
+
+    calculator.addEventListener('click', (event) => {
+      const button = event.target.closest('[data-calc-key]');
+      if (button) handleCalculatorKey(button.dataset.calcKey);
+    });
+
+    calculator.addEventListener('keydown', (event) => {
+      const keyMap = { Enter: 'equals', '=': 'equals', Escape: 'clear', Backspace: 'delete' };
+      const key = keyMap[event.key] || event.key;
+      if (/^\d$/.test(key) || ['.', '+', '-', '*', '/', 'equals', 'clear', 'delete'].includes(key)) {
+        event.preventDefault();
+        handleCalculatorKey(key);
+      }
+    });
+
+    // To-do list with local persistence
+    const todoStorageKey = 'ashleen-profile-tasks';
+    const todoForm = document.getElementById('todoForm');
+    const todoInput = document.getElementById('todoInput');
+    const todoList = document.getElementById('todoList');
+    const todoCount = document.getElementById('todoCount');
+    const todoStorageMessage = document.getElementById('todoStorageMessage');
+    let todoFilter = 'all';
+    let todoTasks = [];
+    let todoStorageAvailable = true;
+
+    try {
+      const savedTasks = localStorage.getItem(todoStorageKey);
+      if (savedTasks) {
+        try {
+          const parsedTasks = JSON.parse(savedTasks);
+          if (Array.isArray(parsedTasks) && parsedTasks.every(task =>
+            task && typeof task.id === 'string' && typeof task.text === 'string' &&
+            typeof task.completed === 'boolean'
+          )) {
+            todoTasks = parsedTasks;
+          } else {
+            todoStorageMessage.textContent = 'Saved task data was invalid, so the list starts fresh.';
+          }
+        } catch (error) {
+          todoStorageMessage.textContent = 'Saved task data was invalid, so the list starts fresh.';
+        }
+      }
+    } catch (error) {
+      todoStorageAvailable = false;
+      todoStorageMessage.textContent = 'Browser storage is unavailable. Tasks will only last for this visit.';
+    }
+
+    const saveTodoTasks = () => {
+      if (!todoStorageAvailable) return;
+      try {
+        localStorage.setItem(todoStorageKey, JSON.stringify(todoTasks));
+      } catch (error) {
+        todoStorageAvailable = false;
+        todoStorageMessage.textContent = 'Could not save tasks in this browser. They will only last for this visit.';
+      }
+    };
+
+    const renderTodoTasks = () => {
+      todoList.replaceChildren();
+      const remainingTasks = todoTasks.filter(task => !task.completed).length;
+      todoCount.textContent = `${remainingTasks} ${remainingTasks === 1 ? 'task' : 'tasks'} left`;
+
+      const visibleTasks = todoTasks.filter(task =>
+        todoFilter === 'all' ||
+        (todoFilter === 'active' && !task.completed) ||
+        (todoFilter === 'completed' && task.completed)
+      );
+
+      if (visibleTasks.length === 0) {
+        const emptyMessage = document.createElement('p');
+        emptyMessage.className = 'todo-empty';
+        emptyMessage.textContent = todoTasks.length === 0
+          ? 'Your list is clear. Add a task to get started!'
+          : 'No tasks in this view.';
+        todoList.append(emptyMessage);
+        return;
+      }
+
+      visibleTasks.forEach(task => {
+        const row = document.createElement('div');
+        row.className = `todo-row${task.completed ? ' completed' : ''}`;
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = task.completed;
+        checkbox.dataset.todoAction = 'toggle';
+        checkbox.dataset.todoId = task.id;
+        checkbox.setAttribute('aria-label', `Mark ${task.text} as ${task.completed ? 'active' : 'complete'}`);
+
+        const text = document.createElement('span');
+        text.textContent = task.text;
+
+        const removeButton = document.createElement('button');
+        removeButton.type = 'button';
+        removeButton.dataset.todoAction = 'delete';
+        removeButton.dataset.todoId = task.id;
+        removeButton.setAttribute('aria-label', `Delete ${task.text}`);
+        removeButton.innerHTML = '<i class="fas fa-trash" aria-hidden="true"></i>';
+
+        row.append(checkbox, text, removeButton);
+        todoList.append(row);
+      });
+    };
+
+    todoForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const text = todoInput.value.trim();
+      if (!text) {
+        todoInput.focus();
+        return;
+      }
+      todoTasks.unshift({
+        id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+        text,
+        completed: false
+      });
+      todoInput.value = '';
+      todoFilter = 'all';
+      document.querySelectorAll('[data-todo-filter]').forEach(button => {
+        button.setAttribute('aria-pressed', String(button.dataset.todoFilter === todoFilter));
+      });
+      saveTodoTasks();
+      renderTodoTasks();
+      todoInput.focus();
+    });
+
+    document.querySelectorAll('[data-todo-filter]').forEach(button => {
+      button.addEventListener('click', () => {
+        todoFilter = button.dataset.todoFilter;
+        document.querySelectorAll('[data-todo-filter]').forEach(filterButton => {
+          filterButton.setAttribute('aria-pressed', String(filterButton === button));
+        });
+        renderTodoTasks();
+      });
+    });
+
+    todoList.addEventListener('change', (event) => {
+      const control = event.target.closest('[data-todo-action="toggle"]');
+      if (!control) return;
+      const task = todoTasks.find(item => item.id === control.dataset.todoId);
+      if (task) {
+        task.completed = control.checked;
+        saveTodoTasks();
+        renderTodoTasks();
+      }
+    });
+
+    todoList.addEventListener('click', (event) => {
+      const button = event.target.closest('[data-todo-action="delete"]');
+      if (!button) return;
+      todoTasks = todoTasks.filter(task => task.id !== button.dataset.todoId);
+      saveTodoTasks();
+      renderTodoTasks();
+    });
+
+    renderTodoTasks();
+
+    // 25-minute focus timer
+    const timerDisplay = document.getElementById('timerDisplay');
+    const timerStatus = document.getElementById('timerStatus');
+    const timerStart = document.getElementById('timerStart');
+    const timerReset = document.getElementById('timerReset');
+    const focusDuration = 25 * 60;
+    let timerRemaining = focusDuration;
+    let focusInterval = null;
+
+    const renderFocusTimer = () => {
+      const minutes = Math.floor(timerRemaining / 60).toString().padStart(2, '0');
+      const seconds = (timerRemaining % 60).toString().padStart(2, '0');
+      timerDisplay.textContent = `${minutes}:${seconds}`;
+    };
+
+    timerStart.addEventListener('click', () => {
+      if (focusInterval) {
+        clearInterval(focusInterval);
+        focusInterval = null;
+        timerStart.textContent = 'Resume';
+        timerStatus.textContent = 'Paused — take your time';
+        return;
+      }
+      if (timerRemaining === 0) timerRemaining = focusDuration;
+      timerStart.textContent = 'Pause';
+      timerStatus.textContent = 'You’ve got this — stay focused';
+      focusInterval = setInterval(() => {
+        timerRemaining -= 1;
+        renderFocusTimer();
+        if (timerRemaining <= 0) {
+          clearInterval(focusInterval);
+          focusInterval = null;
+          timerStart.textContent = 'Start again';
+          timerStatus.textContent = 'Session complete — nice work!';
+        }
+      }, 1000);
+    });
+
+    timerReset.addEventListener('click', () => {
+      if (focusInterval) clearInterval(focusInterval);
+      focusInterval = null;
+      timerRemaining = focusDuration;
+      timerStart.textContent = 'Start';
+      timerStatus.textContent = 'Ready when you are';
+      renderFocusTimer();
+    });
+
+    // Contact form
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Thank you for your message, Ashleen will get back to you soon!');
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>

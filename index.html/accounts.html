@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forward Edge | Transportation</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    body {
+      background: #f4f7fb;
+      color: #1a1a1a;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #0a2540;
+      color: white;
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    nav a.btn {
+      background: #ff6b00;
+      padding: 0.5rem 1.2rem;
+      border-radius: 6px;
+    }
+
+    .hero {
+      background: linear-gradient(rgba(10, 37, 64, 0.85), rgba(10, 37, 64, 0.85)),
+                  url('https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=1600') center/cover;
+      height: 70vh;
+      display: flex;
+      align-items: center;
+      color: white;
+      padding: 0 5%;
+    }
+
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      max-width: 500px;
+    }
+
+    .btn-primary {
+      background: #ff6b00;
+      color: white;
+      padding: 0.9rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      background: #e55f00;
+    }
+
+    .services {
+      padding: 4rem 5%;
+      text-align: center;
+    }
+
+    .services h2 {
+      margin-bottom: 2.5rem;
+      font-size: 2rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    .auth-container {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .auth-card {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 450px;
+    }
+
+    .auth-card h2 {
+      margin-bottom: 0.5rem;
+      color: #0a2540;
+    }
+
+    .auth-card > p {
+      color: #666;
+      margin-bottom: 1.8rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #ff6b00;
+    }
+
+    .switch {
+      margin-top: 1.5rem;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    .switch a {
+      color: #ff6b00;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    #message {
+      margin-top: 1rem;
+      padding: 0.8rem;
+      border-radius: 8px;
+      text-align: center;
+      display: none;
+    }
+
+    #message.success {
+      background: #d4edda;
+      color: #155724;
+      display: block;
+    }
+
+    #message.error {
+      background: #f8d7da;
+      color: #721c24;
+      display: block;
+    }
+
+    footer {
+      background: #0a2540;
+      color: white;
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo" onclick="showPage('home')">Forward Edge</div>
+    <nav>
+      <a onclick="showPage('home')">Home</a>
+      <a onclick="showPage('home')">Services</a>
+      <a onclick="showPage('register')">Create Account</a>
+      <a class="btn" onclick="showPage('login')">Login</a>
+    </nav>
+  </header>
+
+  <!-- ==================== HOME PAGE ==================== -->
+  <div id="home" class="page active">
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Moving Your World Forward</h1>
+        <p>Reliable transportation & logistics solutions across the region.</p>
+        <button class="btn-primary" onclick="showPage('register')">Create Your Account</button>
+      </div>
+    </section>
+
+    <section class="services">
+      <h2>Our Services</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Freight Transport</h3>
+          <p>Safe and timely delivery of goods nationwide.</p>
+        </div>
+        <div class="card">
+          <h3>Fleet Management</h3>
+          <p>Professional management of commercial vehicles.</p>
+        </div>
+        <div class="card">
+          <h3>Logistics Solutions</h3>
+          <p>End-to-end supply chain support.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== REGISTER PAGE ==================== -->
+  <div id="register" class="page">
+    <main class="auth-container">
+      <div class="auth-card">
+        <h2>Create Your Account</h2>
+        <p>Join Forward Edge and start managing your transport needs.</p>
+
+        <form id="registerForm">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="fullName" required placeholder="John Doe">
+          </div>
+
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="email" required placeholder="john@example.com">
+          </div>
+
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" id="phone" required placeholder="+254 7XX XXX XXX">
+          </div>
+
+          <div class="form-group">
+            <label>Account Type</label>
+            <select id="accountType" required>
+              <option value="">Select type</option>
+              <option value="customer">Customer / Shipper</option>
+              <option value="driver">Driver</option>
+              <option value="partner">Business Partner</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password" required minlength="6">
+          </div>
+
+          <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" id="confirmPassword" required>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width:100%">Create Account</button>
+        </form>
+
+        <p class="switch">Already have an account? <a onclick="showPage('login')">Login here</a></p>
+        <div id="message"></div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ==================== LOGIN PAGE ==================== -->
+  <div id="login" class="page">
+    <main class="auth-container">
+      <div class="auth-card">
+        <h2>Welcome Back</h2>
+        <p>Login to your Forward Edge account</p>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="loginEmail" required>
+          </div>
+
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="loginPassword" required>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width:100%">Login</button>
+        </form>
+
+        <p class="switch">Don't have an account? <a onclick="showPage('register')">Create one</a></p>
+        <div id="loginMessage"></div>
+      </div>
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Forward Edge Transportation. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // ========== PAGE NAVIGATION ==========
+    const showPage = (pageId) => {
+      document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+      });
+      document.getElementById(pageId).classList.add('active');
+      window.scrollTo(0, 0);
+    };
+
+    // ========== SHOW MESSAGE ==========
+    const showMessage = (elementId, text, type = "success") => {
+      const message = document.getElementById(elementId);
+      message.textContent = text;
+      message.className = type;
+    };
+
+    // ========== REGISTER ==========
+    document.getElementById("registerForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const fullName = document.getElementById("fullName").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const accountType = document.getElementById("accountType").value;
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      if (password !== confirmPassword) {
+        showMessage("message", "Passwords do not match!", "error");
+        return;
+      }
+
+      if (password.length < 6) {
+        showMessage("message", "Password must be at least 6 characters", "error");
+        return;
+      }
+
+      const newUser = {
+        fullName,
+        email,
+        phone,
+        accountType,
+        password,
+        createdAt: new Date().toISOString()
+      };
+
+      const users = JSON.parse(localStorage.getItem("forwardEdgeUsers")) || [];
+
+      const exists = users.some(user => user.email === email);
+      if (exists) {
+        showMessage("message", "An account with this email already exists.", "error");
+        return;
+      }
+
+      users.push(newUser);
+      localStorage.setItem("forwardEdgeUsers", JSON.stringify(users));
+
+      showMessage("message", "Account created successfully! Redirecting to login...", "success");
+
+      setTimeout(() => {
+        showPage('login');
+        document.getElementById("registerForm").reset();
+        document.getElementById("message").style.display = "none";
+      }, 1500);
+    });
+
+    // ========== LOGIN ==========
+    document.getElementById("loginForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPassword").value;
+
+      const users = JSON.parse(localStorage.getItem("forwardEdgeUsers")) || [];
+      const user = users.find(u => u.email === email && u.password === password);
+
+      if (user) {
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        showMessage("loginMessage", `Welcome back, ${user.fullName}!`, "success");
+
+        setTimeout(() => {
+          alert(`Logged in successfully as ${user.fullName} (${user.accountType})`);
+          // Later we can add a dashboard page
+        }, 800);
+      } else {
+        showMessage("loginMessage", "Invalid email or password", "error");
+      }
+    });
+  </script>

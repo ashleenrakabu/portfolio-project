@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Number Guessing Game</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header>
+      <div>
+        <h1>Number Guessing Game</h1>
+        <p class="subtitle">Guess the number between 1 and 100</p>
+      </div>
+      <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <!-- Game Section -->
+    <section class="card game-card">
+      <div class="card-header">
+        <h2>Make a Guess</h2>
+      </div>
+      <div class="game-content">
+        <input type="number" id="guess-input" placeholder="Enter your guess" min="1" max="100">
+        <button id="guess-btn" class="btn btn-primary">Guess</button>
+        <p id="feedback" class="feedback"></p>
+      </div>
+    </section>
+
+    <!-- Game Stats -->
+    <section class="card stats-card">
+      <div class="card-header">
+        <h2>Game Stats</h2>
+      </div>
+      <div class="stats-content">
+        <p>Attempts: <span id="attempts">0</span></p>
+        <p>Last Guess: <span id="last-guess">N/A</span></p>
+      </div>
+    </section>
+
+    <!-- Reset Button -->
+    <section class="card reset-card">
+      <button id="reset-btn" class="btn btn-secondary">Reset Game</button>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html> 

@@ -1,0 +1,398 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forward Edge | Countrywide Transportation</title>
+
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+    body { background: #f4f7fb; color: #1a1a1a; line-height: 1.6; }
+
+    header {
+      background: #0a2540; color: white; padding: 1rem 5%;
+      display: flex; justify-content: space-between; align-items: center;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-size: 1.5rem; font-weight: 700; cursor: pointer; }
+    nav a { color: white; text-decoration: none; margin-left: 1.5rem; font-weight: 500; cursor: pointer; }
+    nav a.btn { background: #ff6b00; padding: 0.5rem 1.2rem; border-radius: 6px; }
+
+    .hero {
+      background: linear-gradient(rgba(10,37,64,0.85), rgba(10,37,64,0.85)),
+                  url('https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=1600') center/cover;
+      height: 75vh; display: flex; align-items: center; color: white; padding: 0 5%;
+    }
+    .hero-content h1 { font-size: 3.1rem; margin-bottom: 1rem; line-height: 1.2; }
+    .hero-content p { font-size: 1.25rem; margin-bottom: 2rem; max-width: 620px; }
+
+    .btn-primary {
+      background: #ff6b00; color: white; padding: 0.9rem 2rem; border: none;
+      border-radius: 8px; font-size: 1.1rem; cursor: pointer; font-weight: 600;
+    }
+    .btn-primary:hover { background: #e55f00; }
+
+    section { padding: 4.5rem 5%; }
+    h2 { text-align: center; font-size: 2.1rem; margin-bottom: 1rem; color: #0a2540; }
+    .section-subtitle { text-align: center; color: #666; margin-bottom: 3rem; max-width: 700px; margin-left: auto; margin-right: auto; }
+
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+    .card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+    .card h3 { color: #0a2540; margin-bottom: 0.8rem; }
+
+    .about-content {
+      max-width: 900px; margin: 0 auto; background: white; padding: 2.5rem;
+      border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); line-height: 1.8;
+    }
+    .highlight-box {
+      background: #fff7ed; border-left: 5px solid #ff6b00; padding: 1.2rem 1.5rem;
+      margin: 1.5rem 0; border-radius: 0 8px 8px 0; font-weight: 500;
+    }
+
+    .locations { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-top: 2rem; }
+    .location-card {
+      background: white; padding: 2rem; border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08); border-left: 5px solid #ff6b00;
+    }
+    .location-card .badge {
+      display: inline-block; background: #ff6b00; color: white; font-size: 0.8rem;
+      padding: 0.25rem 0.7rem; border-radius: 20px; margin-bottom: 1rem;
+    }
+
+    /* AJAX Section */
+    .ajax-section { background: #eef3f9; }
+    #ajaxResult {
+      margin-top: 2rem; background: white; padding: 1.5rem; border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08); min-height: 120px;
+    }
+    .update-item {
+      padding: 1rem; border-bottom: 1px solid #eee; margin-bottom: 0.8rem;
+    }
+    .update-item:last-child { border-bottom: none; }
+    .loading { color: #666; font-style: italic; }
+
+    .auth-container { min-height: 80vh; display: flex; align-items: center; justify-content: center; padding: 2rem; }
+    .auth-card {
+      background: white; padding: 2.5rem; border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 450px;
+    }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 500; }
+    .form-group input, .form-group select {
+      width: 100%; padding: 0.8rem 1rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;
+    }
+    .form-group input:focus, .form-group select:focus { outline: none; border-color: #ff6b00; }
+    .switch { margin-top: 1.5rem; text-align: center; }
+    .switch a { color: #ff6b00; font-weight: 600; cursor: pointer; }
+
+    #message, #loginMessage {
+      margin-top: 1rem; padding: 0.8rem; border-radius: 8px; text-align: center; display: none;
+    }
+    .success { background: #d4edda; color: #155724; display: block !important; }
+    .error { background: #f8d7da; color: #721c24; display: block !important; }
+
+    footer { background: #0a2540; color: white; text-align: center; padding: 2rem 5%; margin-top: 3rem; }
+    .page { display: none; }
+    .page.active { display: block; }
+
+    @media (max-width: 768px) {
+      .hero-content h1 { font-size: 2.3rem; }
+      nav a { margin-left: 1rem; font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo" id="logo">Forward Edge</div>
+    <nav>
+      <a class="nav-link" data-page="home">Home</a>
+      <a class="nav-link" data-page="home">About</a>
+      <a class="nav-link" data-page="register">Create Account</a>
+      <a class="nav-link btn" data-page="login">Login</a>
+    </nav>
+  </header>
+
+  <!-- ==================== HOME PAGE ==================== -->
+  <div id="home" class="page active">
+
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Countrywide Transportation Solutions</h1>
+        <p>
+          Forward Edge provides reliable transportation and logistics services <strong>across the whole of Kenya</strong> — 
+          from Mombasa to Nairobi and every major town in between.
+        </p>
+        <button class="btn-primary" id="heroRegisterBtn">Create Your Account</button>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section>
+      <h2>About Forward Edge</h2>
+      <p class="section-subtitle">Your trusted partner for countrywide transportation</p>
+      <div class="about-content">
+        <p>
+          <strong>Forward Edge</strong> is a leading transportation and logistics company with its main branch in 
+          <strong>Mombasa</strong> and a key branch in <strong>Nairobi</strong>. We move goods <strong>countrywide</strong>.
+        </p>
+        <div class="highlight-box">
+          We offer full nationwide coverage — transporting cargo to and from all major towns and cities across Kenya.
+        </div>
+        <p>
+          From the Port of Mombasa to any destination in Kenya, our modern fleet and experienced team deliver 
+          reliable, transparent and efficient transportation services.
+        </p>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section style="background:#eef3f9;">
+      <h2>Our Countrywide Services</h2>
+      <p class="section-subtitle">Transportation solutions that reach every corner of Kenya</p>
+      <div class="cards">
+        <div class="card"><h3>Countrywide Freight</h3><p>FTL & LTL services connecting all major towns in Kenya.</p></div>
+        <div class="card"><h3>Port & Container Handling</h3><p>Containers from Mombasa Port with countrywide delivery.</p></div>
+        <div class="card"><h3>Long-Haul Transport</h3><p>Reliable long-distance haulage across the entire country.</p></div>
+        <div class="card"><h3>Last-Mile Delivery</h3><p>Final delivery in Nairobi and other major urban centres.</p></div>
+        <div class="card"><h3>Warehousing Support</h3><p>Storage and cross-docking in Mombasa & Nairobi.</p></div>
+        <div class="card"><h3>Corporate Logistics</h3><p>Custom nationwide contracts for businesses.</p></div>
+      </div>
+    </section>
+
+    <!-- BRANCHES -->
+    <section>
+      <h2>Our Branches</h2>
+      <p class="section-subtitle">Strategically located to support countrywide operations</p>
+      <div class="locations">
+        <div class="location-card">
+          <span class="badge">Main Branch / Headquarters</span>
+          <h3>Mombasa Branch</h3>
+          <p><strong>Location:</strong> Near Port of Mombasa</p>
+          <p style="margin-top:0.8rem;">Main operational hub for imports and countrywide dispatch.</p>
+        </div>
+        <div class="location-card">
+          <span class="badge" style="background:#0a2540;">Branch Office</span>
+          <h3>Nairobi Branch</h3>
+          <p><strong>Location:</strong> Industrial Area, Nairobi</p>
+          <p style="margin-top:0.8rem;">Inland hub for distribution and last-mile delivery.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== AJAX SECTION ==================== -->
+    <section class="ajax-section">
+      <h2>Live Network Updates</h2>
+      <p class="section-subtitle">Click the button below to fetch the latest sample shipment updates using AJAX (no page reload)</p>
+      
+      <div style="text-align:center;">
+        <button class="btn-primary" id="fetchUpdatesBtn">Fetch Latest Updates</button>
+      </div>
+
+      <div id="ajaxResult">
+        <p class="loading">Click the button to load live updates...</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ==================== REGISTER PAGE ==================== -->
+  <div id="register" class="page">
+    <main class="auth-container">
+      <div class="auth-card">
+        <h2>Create Your Account</h2>
+        <p>Join Forward Edge and access countrywide transportation services.</p>
+
+        <form id="registerForm">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="fullName" required placeholder="John Doe">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="email" required placeholder="john@example.com">
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" id="phone" required placeholder="+254 7XX XXX XXX">
+          </div>
+          <div class="form-group">
+            <label>Account Type</label>
+            <select id="accountType" required>
+              <option value="">Select type</option>
+              <option value="customer">Customer / Shipper</option>
+              <option value="driver">Driver</option>
+              <option value="partner">Business Partner</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password" required minlength="6">
+          </div>
+          <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" id="confirmPassword" required>
+          </div>
+          <button type="submit" class="btn-primary" style="width:100%">Create Account</button>
+        </form>
+
+        <p class="switch">Already have an account? <a class="nav-link" data-page="login">Login here</a></p>
+        <div id="message"></div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ==================== LOGIN PAGE ==================== -->
+  <div id="login" class="page">
+    <main class="auth-container">
+      <div class="auth-card">
+        <h2>Welcome Back</h2>
+        <p>Login to your Forward Edge account</p>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="loginEmail" required>
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="loginPassword" required>
+          </div>
+          <button type="submit" class="btn-primary" style="width:100%">Login</button>
+        </form>
+
+        <p class="switch">Don't have an account? <a class="nav-link" data-page="register">Create one</a></p>
+        <div id="loginMessage"></div>
+      </div>
+    </main>
+  </div>
+
+  <footer>
+    <p><strong>Forward Edge Transportation</strong></p>
+    <p style="margin-top:0.5rem;">Countrywide Coverage | Main Branch: Mombasa | Branch: Nairobi</p>
+    <p style="margin-top:0.8rem; opacity:0.8;">© 2026 Forward Edge. All rights reserved.</p>
+  </footer>
+
+  <script>
+    $(document).ready(function () {
+
+      // ========== jQuery Page Navigation ==========
+      function showPage(pageId) {
+        $('.page').removeClass('active');
+        $('#' + pageId).addClass('active');
+        $(window).scrollTop(0);
+      }
+
+      // Handle all navigation clicks using jQuery
+      $('.nav-link, #logo, #heroRegisterBtn').on('click', function () {
+        const page = $(this).data('page') || ($(this).attr('id') === 'logo' ? 'home' : 'register');
+        showPage(page);
+      });
+
+      // ========== Helper: Show Message ==========
+      function showMessage(elementId, text, type = 'success') {
+        $('#' + elementId).text(text).removeClass('success error').addClass(type);
+      }
+
+      // ========== REGISTER FORM (jQuery) ==========
+      $('#registerForm').on('submit', function (e) {
+        e.preventDefault();
+
+        const fullName = $('#fullName').val().trim();
+        const email = $('#email').val().trim();
+        const phone = $('#phone').val().trim();
+        const accountType = $('#accountType').val();
+        const password = $('#password').val();
+        const confirmPassword = $('#confirmPassword').val();
+
+        if (password !== confirmPassword) {
+          showMessage('message', 'Passwords do not match!', 'error');
+          return;
+        }
+        if (password.length < 6) {
+          showMessage('message', 'Password must be at least 6 characters', 'error');
+          return;
+        }
+
+        const newUser = { fullName, email, phone, accountType, password, createdAt: new Date().toISOString() };
+        let users = JSON.parse(localStorage.getItem('forwardEdgeUsers')) || [];
+
+        if (users.some(user => user.email === email)) {
+          showMessage('message', 'An account with this email already exists.', 'error');
+          return;
+        }
+
+        users.push(newUser);
+        localStorage.setItem('forwardEdgeUsers', JSON.stringify(users));
+
+        showMessage('message', 'Account created successfully! Redirecting to login...', 'success');
+
+        setTimeout(() => {
+          showPage('login');
+          $('#registerForm')[0].reset();
+          $('#message').removeClass('success error').hide();
+        }, 1500);
+      });
+
+      // ========== LOGIN FORM (jQuery) ==========
+      $('#loginForm').on('submit', function (e) {
+        e.preventDefault();
+
+        const email = $('#loginEmail').val().trim();
+        const password = $('#loginPassword').val();
+        const users = JSON.parse(localStorage.getItem('forwardEdgeUsers')) || [];
+        const user = users.find(u => u.email === email && u.password === password);
+
+        if (user) {
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          showMessage('loginMessage', `Welcome back, ${user.fullName}!`, 'success');
+          setTimeout(() => {
+            alert(`Logged in as ${user.fullName} (${user.accountType})\n\nForward Edge offers countrywide transportation.`);
+          }, 800);
+        } else {
+          showMessage('loginMessage', 'Invalid email or password', 'error');
+        }
+      });
+
+      // ========== AJAX CALL (jQuery) - Fetch data without page reload ==========
+      $('#fetchUpdatesBtn').on('click', function () {
+        const $result = $('#ajaxResult');
+        $result.html('<p class="loading">Loading latest updates from server...</p>');
+
+        // jQuery AJAX request
+        $.ajax({
+          url: 'https://jsonplaceholder.typicode.com/posts',
+          method: 'GET',
+          dataType: 'json',
+          success: function (data) {
+            // Take only first 5 items for demo
+            const updates = data.slice(0, 5);
+
+            let html = '<h3 style="margin-bottom:1rem; color:#0a2540;">Latest Shipment Updates</h3>';
+
+            updates.forEach((item, index) => {
+              html += `
+                <div class="update-item">
+                  <strong>Update #${item.id}</strong> — ${item.title}<br>
+                  <small style="color:#666;">${item.body.substring(0, 90)}...</small>
+                </div>
+              `;
+            });
+
+            $result.html(html);
+          },
+          error: function () {
+            $result.html('<p class="error">Failed to load updates. Please try again.</p>');
+          }
+        });
+      });
+
+    });
+  </script>
+</body>
+</html>

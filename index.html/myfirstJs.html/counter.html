@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter</title>
+</head>
+<body>
+    <h1>My counter</h1>
+    <p id="number">0</p>
+    <button onclick="addOne()">Click me!</button>
+    <button onclick="resetCounter()">Reset</button>
+    <button onclick="minusOne()">Minus One</button>
+    <p id="note"></p>
+    <input id = "nameBox" placeholder="Type your name">
+    <button onclick = "greet()">Greet Me</button>
+    <p id = "greeting"></p>
+    <button onclick= "changeColor()">Change Color</button>
+    <input id = "colorBox" placeholder = "Type a color">
+    <button onclick = "applyColor()">Apply color</button>
+    <input id="itemBox" placeholder="Add an item">
+    <button onclick="addItem()">Add Item</button>
+    <ul id="list"></ul> 
+    <script>
+        let count = 0;
+        const numberElement = document.getElementById("number");
+
+        function addOne() {
+            count= count + 1;
+            document.getElementById("number").textContent = count;
+            if(count ==10){
+                document.getElementById("note").textContent = "You reached 10!";
+            } else {
+                document.getElementById("note").textContent = "keep clicking!";
+            }
+        }
+
+        function minusOne() {
+       if(count>0){
+        count = count - 1;
+       }
+            document.getElementById("number").textContent = count;
+            document.getElementById("note").textContent = "keep clicking!";
+        }
+
+        function resetCounter() {
+            count = 0;
+            document.getElementById("number").textContent = count;
+            document.getElementById("note").textContent = "Counter reset!";
+        }
+        function greet(){
+            const name = document.getElementById("nameBox").value;
+            if (name == "") {
+                document.getElementById("greeting").textContent = "Please type your name first.";
+            } else {
+                document.getElementById("greeting").textContent = "Hello, " + name + "!";
+            }
+        }
+        function changeColor(){
+        document.body.style.backgroundColor ="lightblue";   
+        }
+        function applyColor(){
+            const color = document.getElementById("colorBox").value;
+            document.body.style.backgroundColor = color;
+        }
+        function addItem(){
+            const item = document.getElementById("itemBox").value;
+       document.getElementById("list").innerHTML += "<li>" + item + "</li>";
+       document.getElementById("itemBox").value = "";
+            }
+        
+    </script>
+</body>
+</html>

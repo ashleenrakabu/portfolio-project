@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>My First JavaScript</title>
+    </head>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+            display: grid;
+            place-items: center;
+            font-family: Arial, sans-serif;
+            color: #f8fafc;
+            background: radial-gradient(circle at top left, #713b5b, transparent 45%),
+                        linear-gradient(135deg, #171827, #29243a);
+        }
+        .calculator {
+            width: min(100%, 460px);
+            padding: 32px;
+            border: 1px solid rgba(255, 255, 255, .12);
+            border-radius: 24px;
+            background: rgba(255, 255, 255, .08);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, .35);
+            backdrop-filter: blur(12px);
+        }
+        h1 { margin: 0 0 8px; font-size: 1.8rem; }
+        .subtitle { margin: 0 0 26px; color: #c4bfd0; }
+        form { display: grid; gap: 16px; }
+        label { display: grid; gap: 8px; color: #e5e1ec; font-size: .9rem; text-align: left; }
+        input, select, button {
+            width: 100%;
+            min-height: 48px;
+            margin: 0;
+            padding: 12px 14px;
+            border: 1px solid rgba(255, 255, 255, .16);
+            border-radius: 10px;
+            font: inherit;
+        }
+        input, select { color: #f8fafc; background: rgba(13, 15, 27, .65); }
+        input::placeholder { color: #9995a8; }
+        #display {
+            min-height: 70px;
+            text-align: right;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+            background: rgba(13, 15, 27, .8);
+        }
+        button {
+            cursor: pointer;
+            border: 0;
+            color: #fff;
+            font-weight: 700;
+            background: linear-gradient(135deg, #8b5cf6, #6d4be8);
+            transition: transform .15s ease, filter .15s ease;
+        }
+        button:hover { filter: brightness(1.12); transform: translateY(-1px); }
+        button:focus-visible, input:focus-visible, select:focus-visible {
+            outline: 3px solid #c4b5fd;
+            outline-offset: 2px;
+        }
+        @media (max-width: 480px) {
+            .calculator { padding: 24px; }
+            h1 { font-size: 1.55rem; }
+        }
+    </style>
+    <body>
+        <main class="calculator">
+        <h1>Simple calculator</h1>
+        <p class="subtitle">Choose an operation and enter your numbers.</p>
+
+        <form>
+            <label for="display">Result
+                <input type="text" id="display" value="0" readonly aria-live="polite">
+            </label>
+            <label for="operation">Operation
+            <select name="type" id="operation">
+                <option value="add">Add</option>
+                <option value="subtract">Subtract</option>
+                <option value="multiply">Multiply</option>
+                <option value="divide">Divide</option>
+            </select>
+            </label>
+            <label for="number1">First number
+                <input type="number" id="number1" placeholder="e.g. 12" step="any">
+            </label>
+            <label for="number2">Second number
+                <input type="number" id="number2" placeholder="e.g. 4" step="any">
+            </label>
+            <button type="button" onclick="calculate()">Calculate</button>
+        </form>
+        </main>
+
+        <script>
+         const displayElement = document.getElementById("display");
+         function calculate() {
+            const num1 = parseFloat(document.getElementById("number1").value);
+            const num2 = parseFloat(document.getElementById("number2").value);
+            const operation = document.getElementById("operation").value;
+
+            let result;
+            switch(operation) {
+                case "add":
+                    result = num1 + num2;
+                    break;
+                case "subtract":
+                    result = num1 - num2;
+                    break;
+                case "multiply":
+                    result = num1 * num2;
+                    break;
+                case "divide":
+                    result = num1 / num2;
+                    break;
+            }
+            displayElement.value = result;
+         }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE .html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>login form</title>
+        </head>
+    
+
+        <form>
+        <h1>Login Form</h1>
+        <fieldset>
+            <legend>Personal Information</legend>
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name"/>
+        </div>
+        <div>
+            <label for="birthday">Birthday:</label> 
+            <input type="date" name="birthday" id="birthday"/>
+        </div>
+        </fieldset>
+        <fieldset>
+            <legend>Credentials</legend>
+        <div
+             <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+      </div>
+     <div>
+            <label for="password">password:</label>
+            <input type="password" id="pasword" name="password" required><br><br>
+       </div>
+       </fieldset>
+       <fieldset>
+            <legend>Terms</legend>
+       <div>
+       <p>Do you want to receive updates by mail?</p> 
+       <input type="radio" id="updates-yes" name="updates" value="yes">
+       <label for="updates-yes">Yes</label><br><br> 
+       input type="radio" id="updates-no" name="updates" value="no">
+       <label for="updates-no">No</label><br><br>
+       </div>
+       </fieldset>
+       <div>
+        <input type="checkbox" id="accept-terms" name="accept-terms" value="accept"/>
+        <label for="accept-terms">I accept the terms and conditions</label><br><br>
+       </div>
+            <input type="submit" value="Submit">
+
+</html>

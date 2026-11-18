@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Simple Calculator</title>
+<style>
+  body { font-family: Arial, sans-serif; display: flex; justify-content: center; padding-top: 40px; }
+  .calculator { width: 260px; }
+  #display { width: 100%; height: 50px; font-size: 24px; text-align: right; margin-bottom: 10px; box-sizing: border-box; }
+  .buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  button { height: 50px; font-size: 20px; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<div class="calculator">
+  <!-- The screen. "readonly" means you can't type in it directly. -->
+  <input type="text" id="display" value="0" readonly>
+
+  <div class="buttons">
+    <!-- onclick runs a JavaScript function when the button is pressed -->
+    <button onclick="clearAll()">C</button>
+    <button onclick="deleteLast()">⌫</button>
+    <button onclick="chooseOperator('%')">%</button>
+    <button onclick="chooseOperator('/')">÷</button>
+
+    <button onclick="addDigit('7')">7</button>
+    <button onclick="addDigit('8')">8</button>
+    <button onclick="addDigit('9')">9</button>
+    <button onclick="chooseOperator('*')">×</button>
+
+    <button onclick="addDigit('4')">4</button>
+    <button onclick="addDigit('5')">5</button>
+    <button onclick="addDigit('6')">6</button>
+    <button onclick="chooseOperator('-')">−</button>
+
+    <button onclick="addDigit('1')">1</button>
+    <button onclick="addDigit('2')">2</button>
+    <button onclick="addDigit('3')">3</button>
+    <button onclick="chooseOperator('+')">+</button>
+
+    <button onclick="addDigit('0')">0</button>
+    <button onclick="addDigit('.')">.</button>
+    <button onclick="calculate()" style="grid-column: span 2;">=</button>
+  </div>
+</div>
+
+<script>
+  // ---------- 1. VARIABLES (the calculator's memory) ----------
+  var currentNumber = "0";   // the number being typed (kept as text)
+  var firstNumber = null;    // the number saved before pressing an operator
+  var operator = null;       // the chosen operator: + - * / %
+  var startNewNumber = false; // true when the next digit should replace the screen
+
+  var display = document.getElementById("display"); // find the screen on the page
+
+  // ---------- 2. SHOW THE NUMBER ON SCREEN ----------
+  function updateDisplay() {
+    display.value = currentNumber;
+  }
+
+  // ---------- 3. TYPING A DIGIT ----------
+  function addDigit(digit) {
+    // After pressing an operator or "=", the next digit starts a new number
+    if (startNewNumber) {
+      currentNumber = "0";
+      startNewNumber = false;
+    }
+
+    // Don't allow two decimal points in one number
+    if (digit === "." && currentNumber.includes(".")) {
+      return; // "return" stops the function here
+    }
+
+    // Replace a lone "0", otherwise add the digit to the end
+    if (currentNumber === "0" && digit !== ".") {
+      currentNumber = digit;
+    } else {
+      currentNumber = currentNumber + digit;
+    }
+
+    updateDisplay();
+  }
+
+  // ---------- 4. CHOOSING AN OPERATOR ----------
+  function chooseOperator(newOperator) {
+    // If an operator is already waiting, finish that calculation first
+    if (operator !== null && !startNewNumber) {
+      calculate();
+    }
+
+    firstNumber = Number(currentNumber); // turn the text into a real number
+    operator = newOperator;
+    startNewNumber = true;
+  }
+
+  // ---------- 5. DOING THE MATH ----------
+  function calculate() {
+    if (operator === null) {
+      return; // nothing to calculate yet
+    }
+
+    var secondNumber = Number(currentNumber);
+    var result;
+
+    if (operator === "+") {
+      result = firstNumber + secondNumber;
+    } else if (operator === "-") {
+      result = firstNumber - secondNumber;
+    } else if (operator === "*") {
+      result = firstNumber * secondNumber;
+    } else if (operator === "/") {
+      if (secondNumber === 0) {
+        currentNumber = "Error";
+        operator = null;
+        startNewNumber = true;
+        updateDisplay();
+        return;
+      }
+      result = firstNumber / secondNumber;
+    } else if (operator === "%") {
+      result = firstNumber % secondNumber;
+    }
+
+    // Round to avoid results like 0.30000000000000004
+    currentNumber = String(Math.round(result * 1000000000) / 1000000000);
+    operator = null;
+    startNewNumber = true;
+    updateDisplay();
+  }
+
+  // ---------- 6. CLEAR AND DELETE ----------
+  function clearAll() {
+    currentNumber = "0";
+    firstNumber = null;
+    operator = null;
+    startNewNumber = false;
+    updateDisplay();
+  }
+
+  function deleteLast() {
+    if (currentNumber.length > 1 && currentNumber !== "Error") {
+      currentNumber = currentNumber.slice(0, -1); // remove the last character
+    } else {
+      currentNumber = "0";
+    }
+    updateDisplay();
+  }
+</script>
+
+</body>
+</html>
